@@ -54,6 +54,10 @@ header {
   min-height: 100px;
 }
 
+.settings{
+  display:block;
+  background: rgb(211, 233, 247);
+}
 .card-footer {
   text-align: center;
 }
