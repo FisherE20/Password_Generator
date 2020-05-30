@@ -1,34 +1,44 @@
 const resultEl=document.getElementById("result");
 const lengthEl=document.getElementById("length");
-const uppercaseEl=document.getElementById("uppercase");
-const lowercaseEl=document.getElementById("lowercase");
+const uppercaseEl=document.getElementById("upperCase");
+const lowercaseEl=document.getElementById("lowerCase");
 const numbersEl=document.getElementById("numbers");
 const symbolsEl=document.getElementById("symbols");
 const generateEL=document.getElementById("generate");
 
-const randomFunc ={
-    lower: getRandomLower,
+/*const randomFunction = {
+    // lower: getRandomLower,
+    lower: confirm("WOuld you like lower case letters in your password?"),
     upper: getRandomUpper,
     number: getRandomNumber,
-    symbol: getRandomSymbols,
-};
+    symbol: getRandomSymbols 
+}*/
+
 
 // Add event listener to generate button
-generateEL.addEventListener("click", () =>{
-    const length = +lengthEl.value;
-    const hasLower= lowercaseEl.checked;
-    const hasUpper= uppercaseEl.checked;
-    const hasNumber= numbersEl.checked;
+generate.addEventListener("click", ()=> {
+    event.preventDefault();
+    const hasLength = length.value;
+    const hasLowerCase= lowercaseEl.checked;
+    const hasUpperCase= uppercaseEl.checked;
+    const hasNumbers= numbersEl.checked;
     const hasSymbol= symbolsEl.checked;
 
+    const randomFunction = {
+        // lower: getRandomLower,
+        len: hasLength,
+        lower: hasLowerCase,
+        upper:hasUpperCase,
+        number: hasNumbers,
+        symbol: hasSymbol 
+    }
 
-resultEl.innerText. generatePassword(
-    hasLower,
-    hasUpper,
-    hasNumber,
-    hasSymbol,
-    length
+//console.log(hasLowerCase, hasUpperCase, hasNumbers, hasSymbol);
+
+resultEl.innertext= genratePassword(
+    hasLowerCase, hasUpperCase, hasNumbers, hasSymbol, hasLength
 );
+
 });
 
 function generatePassword(lower, upper, number, symbol, length){
@@ -50,28 +60,32 @@ function generatePassword(lower, upper, number, symbol, length){
             const FuncName = Object.keys(types)[0];
 
             generatePassword += randomFunc[FuncName]();
+            
             });
         }
     }
 
 //generate function - http://www.net-comber.com/charset.html
-function getRandomLower(){
+function getRandomLowerCase(){
     return String.fromCharCode(Math.floor(Math.random() * 26) +97);
 }
 
-function getRandomUpper(){
+function getRandomUpperCase(){
     return String.fromCharCode(Math.floor(Math.random() * 26) +65);
 }
 
-function getRandomNumber(){
+function getRandomNumbers(){
     return String.fromCharCode(Math.floor(Math.random() * 26) +48);
 }
 
-function getRandomSymbols(){
+function getRandomSymbol(){
     const symbols= '!@#$%^&*(){}[]/,.';
     return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
-function getRandomResult(){
-    return 
+function getRandomResult(getRandomLower, getRandomUpper, getRandomNumber, getRandomSymbols, length){
+  
 }
+
+
+
