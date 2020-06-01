@@ -8,32 +8,30 @@ const generateEl = document.querySelector("#generate");
 
 //verify what elements have been checked
 function myFunction() {
-    document.getElementById("uppercase", "lowercase", "numbers", "symbols").checked;
-    // const text = document.getElementById("text");
-    var allowed= "";
+    var allowed = "";
     if (lowercase.checked == true) {
         allowed += lowercaseEl;
     }
     //return console.log("working");
 
-// this is for uppercase check box
-if ( uppercase.checked == true) {
+    // this is for uppercase check box
+    if (uppercase.checked == true) {
         allowed += uppercaseEl;
+    }
+
+    // this is for numbers check box
+    if (numbers.checked == true) {
+        allowed += numbersEl;
+
+    }
+    // this is for symbols checked box
+    if (symbols.checked == true) {
+        allowed += symbolsEl
+
+    }
+    return allowed;
 }
 
-// this is for numbers check box
-if (numbers.checked == true) {
-    allowed += numbersEl;
-   
-}
-// this is for symbols checked box
-if (symbols.checked == true) {
-    allowed += symbolsEl
-   
-}
-
-}
-myFunction();
 
 // Add event listener to generate button
 generateEl.addEventListener("click", () => {
@@ -43,15 +41,15 @@ generateEl.addEventListener("click", () => {
     const hasUpperCase = uppercaseEl.checked;
     const hasNumbers = numbersEl.checked;
     const hasSymbols = symbolsEl.checked;
-    
-     if (length > 25 || length < 8) {
-         alert("pick a number between 8 - 25!");
-     } else {
-        generatePassword();
-     }
 
-    
-    
+    if (length > 25 || length < 8) {
+        alert("pick a number between 8 - 25!");
+    } else {
+        generatePassword();
+    }
+
+
+
 });
 
 
@@ -78,18 +76,23 @@ function getRandomSymbols() {
 //console.log(getRandomSymbol());
 
 function generatePassword() {
-    var newPassword= getRandomLowerCase() + getRandomUpperCase() + getRandomNumbers() + getRandomSymbols();
-    var length= parseInt(length.value);
-        for (var i=0; i< length; i++){
-            var random= Math.floor(Math.random() * allowed.length);
-            newPassword += allowed[random];
-        }
-    
+    var checkedbox= myFunction();
+    console.log(checkedbox);
+    var randomFunctions = [getRandomLowerCase() , getRandomUpperCase() , getRandomNumbers() , getRandomSymbols()];
+    var newPassword= "";
+    const length = parseInt (lengthEl.value);
+    console.log(length);
+    for (var i = 0; i < length; i++) {
+        var random = Math.floor(Math.random() * 3);
+        console.log(random);
+        newPassword += randomFunctions[random];
+    }
 
-    
+
+
     document.getElementById("password").innerHTML = newPassword;
-   
-    
+
+
     return console.log(newPassword);
 };
 
