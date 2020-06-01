@@ -9,32 +9,48 @@ const generateEl = document.querySelector("#generate");
 //verify what elements have been checked
 function myFunction() {
     document.getElementById("uppercase", "lowercase", "numbers", "symbols").checked;
-    const text = document.getElementById("text");
-    if (lowercaseEl.checked || uppercaseEl.checked || numbersEl.checked || symbolsEl.checked == true) {
-        text.style.display = "block";
-    } else {
-        text.style.display = "none";
+    // const text = document.getElementById("text");
+    var allowed= "";
+    if (lowercase.checked == true) {
+        allowed += lowercaseEl;
     }
     //return console.log("working");
+
+// this is for uppercase check box
+if ( uppercase.checked == true) {
+        allowed += uppercaseEl;
 }
 
+// this is for numbers check box
+if (numbers.checked == true) {
+    allowed += numbersEl;
+   
+}
+// this is for symbols checked box
+if (symbols.checked == true) {
+    allowed += symbolsEl
+   
+}
 
+}
 myFunction();
 
 // Add event listener to generate button
 generateEl.addEventListener("click", () => {
     event.preventDefault();
-    const Length = lengthEl.value;
+    const length = lengthEl.value;
     const hasLowerCase = lowercaseEl.checked;
     const hasUpperCase = uppercaseEl.checked;
     const hasNumbers = numbersEl.checked;
     const hasSymbols = symbolsEl.checked;
     
-    if(length > 25 || length < 8){
-        alert("pick a number between 8 - 25!");
-    };
+     if (length > 25 || length < 8) {
+         alert("pick a number between 8 - 25!");
+     } else {
+        generatePassword();
+     }
 
-    generatePassword();
+    
     
 });
 
@@ -62,13 +78,13 @@ function getRandomSymbols() {
 //console.log(getRandomSymbol());
 
 function generatePassword() {
-    var newPassword= getRandomLowerCase() + getRandomUpperCase() + getRandomNumbers() + getRandomSymbols() + length;
+    var newPassword= getRandomLowerCase() + getRandomUpperCase() + getRandomNumbers() + getRandomSymbols();
+    var length= parseInt(length.value);
+        for (var i=0; i< length; i++){
+            var random= Math.floor(Math.random() * allowed.length);
+            newPassword += allowed[random];
+        }
     
-    var typesCount= (getRandomLowerCase() + getRandomUpperCase() + getRandomNumbers() + getRandomSymbols());
-    console.log(typesCount);
-
-    var typesArr= [{lowercase}, {uppercase}, {numbers}, {symbols}] .shuffle;
-    console.log(typesArr);    
 
     
     document.getElementById("password").innerHTML = newPassword;
