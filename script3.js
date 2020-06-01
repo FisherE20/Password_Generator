@@ -12,11 +12,12 @@ function myFunction() {
     const text = document.getElementById("text");
     if (lowercaseEl.checked || uppercaseEl.checked || numbersEl.checked || symbolsEl.checked == true) {
         text.style.display = "block";
-        //console.log("working");
     } else {
         text.style.display = "none";
     }
+    //return console.log("working");
 }
+
 
 myFunction();
 
@@ -28,26 +29,14 @@ generateEl.addEventListener("click", () => {
     const hasUpperCase = uppercaseEl.checked;
     const hasNumbers = numbersEl.checked;
     const hasSymbols = symbolsEl.checked;
-
-
-});
-
-function generatePassword() {
-    getRandomLowerCase(); 
-    getRandomUpperCase();
-    getRandomNumbers();
-    getRandomSymbols();
-    document.getElementById("result").innerHTML = "finalPassword";
-};
-
-generatePassword();
     
-// function finalPassword(){
-//     generatePassword.slice(0,length);
-//     document.getElementById("result").innerHTML = "finalPassword";
-// }; 
+    if(length > 25 || length < 8){
+        alert("pick a number between 8 - 25!");
+    };
 
-// finalPassword();
+    generatePassword();
+    
+});
 
 
 //generate function - http://www.net-comber.com/charset.html
@@ -72,8 +61,21 @@ function getRandomSymbols() {
 };
 //console.log(getRandomSymbol());
 
-// const randomFunc = {
-//     lower: getRandomLowerCase,
-//     upper: getRandomUpperCase,
-//     number: getRandomNumbers,
-//     symbol: getRandomSymbols
+function generatePassword() {
+    var newPassword= getRandomLowerCase() + getRandomUpperCase() + getRandomNumbers() + getRandomSymbols() + length;
+    
+    var typesCount= (getRandomLowerCase() + getRandomUpperCase() + getRandomNumbers() + getRandomSymbols());
+    console.log(typesCount);
+
+    var typesArr= [{lowercase}, {uppercase}, {numbers}, {symbols}] .shuffle;
+    console.log(typesArr);    
+
+    
+    document.getElementById("password").innerHTML = newPassword;
+   
+    
+    return console.log(newPassword);
+};
+
+
+
