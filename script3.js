@@ -8,27 +8,33 @@ const generateEl = document.querySelector("#generate");
 
 //verify what elements have been checked
 function myFunction() {
-    var allowed = "";
-    if (lowercase.checked == true) {
-        allowed += lowercaseEl;
+    
+    const hasLowerCase = lowercaseEl.checked;
+    const hasUpperCase = uppercaseEl.checked;
+    const hasNumbers = numbersEl.checked;
+    const hasSymbols = symbolsEl.checked;
+   
+    var allowed= [0,0,0,0];
+    if (hasLowerCase == true) {
+        allowed[0]=1;
     }
-    //return console.log("working");
-
+    
     // this is for uppercase check box
-    if (uppercase.checked == true) {
-        allowed += uppercaseEl;
+    if (hasUpperCase == true) {
+        allowed[1]=1;
     }
 
     // this is for numbers check box
-    if (numbers.checked == true) {
-        allowed += numbersEl;
+    if (hasNumbers == true) {
+        allowed[2]=1;
 
     }
     // this is for symbols checked box
-    if (symbols.checked == true) {
-        allowed += symbolsEl
-
+    if (hasSymbols == true) {
+        allowed[3]=1;
     }
+   
+    console.log(allowed);
     return allowed;
 }
 
@@ -37,11 +43,6 @@ function myFunction() {
 generateEl.addEventListener("click", () => {
     event.preventDefault();
     const length = lengthEl.value;
-    const hasLowerCase = lowercaseEl.checked;
-    const hasUpperCase = uppercaseEl.checked;
-    const hasNumbers = numbersEl.checked;
-    const hasSymbols = symbolsEl.checked;
-
     if (length > 25 || length < 8) {
         alert("pick a number between 8 - 25!");
     } else {
@@ -76,19 +77,42 @@ function getRandomSymbols() {
 //console.log(getRandomSymbol());
 
 function generatePassword() {
-    var checkedbox= myFunction();
-    console.log(checkedbox);
-    var randomFunctions = [getRandomLowerCase() , getRandomUpperCase() , getRandomNumbers() , getRandomSymbols()];
+    var checkedbox= myFunction();//Receiving user preferences on lowercase, uppercase, numbers, symbols...
+    //ARRAY: 0:lowercase, 1:uppercase, 2:number, 3:symbols
+    
+
+   
+    
     var newPassword= "";
+
+    //get password length
     const length = parseInt (lengthEl.value);
-    console.log(length);
+    
+    var passwordBucket = []
+    //make password random
     for (var i = 0; i < length; i++) {
-        var random = Math.floor(Math.random() * 3);
-        console.log(random);
+         //Possible functions
+        var randomFunctions = [getRandomLowerCase() , getRandomUpperCase() , getRandomNumbers() , getRandomSymbols()];
+        //get random number 0-3
+        var random = Math.floor(Math.random() * 4);
+
+        if(checkedbox[0]==1 && random == 0){
+            passwordBucket.push(getRandomLowerCase());
+        }
+        if(checkedbox[1]==1 && random == 1){
+            passwordBucket.push(getRandomUpperCase());
+        }
+        if(checkedbox[2]==1 && random == 2){
+            passwordBucket.push(getRandomNumbers());
+        }
+        if(checkedbox[3]==1&& random == 0){
+            passwordBucket.push(getRandomSymbols());
+        }
+
+        
+        console.log(passwordBucket);
         newPassword += randomFunctions[random];
     }
-
-
 
     document.getElementById("password").innerHTML = newPassword;
 
